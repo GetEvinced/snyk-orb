@@ -62,7 +62,7 @@ parameters:
     description: Refer to the Snyk CLI help page for information on additional arguments. These are passed only to the `snyk monitor` command.
     type: string
     default: ""
-  no-cache:
+  no_cache:
     description: >
       Disable caching the Snyk CLI
     type: boolean
@@ -99,7 +99,7 @@ steps:
       os: <<parameters.os>>
       install-alpine-dependencies: <<parameters.install-alpine-dependencies>>
       token_variable: <<parameters.token_variable>>
-      no-cache: <<parameters.no-cache>>
+      no_cache: <<parameters.no_cache>>
       test-only-param_fail-on-no-cache-used: <<parameters.test-only-param_fail-on-no-cache-used>>
   # snyk test
   - run:

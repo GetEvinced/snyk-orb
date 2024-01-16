@@ -12,7 +12,7 @@ parameters:
       The version of the Snyk CLI you are using.
     type: string
     default: ""
-  no-cache:
+  no_cache:
     description: >
       Disable caching the Snyk CLI
     type: boolean
@@ -61,7 +61,7 @@ steps:
         SNYK_INTEGRATION_NAME: CIRCLECI_ORB
         SNYK_INTEGRATION_VERSION: REPLACE_ORB_VERSION
       command: |
-        if <<parameters.no-cache>> && <<parameters.test-only-param_fail-on-no-cache-used>>
+        if <<parameters.no_cache>> && <<parameters.test-only-param_fail-on-no-cache-used>>
         then
           echo "Cache disabled, but trying to \
           enforce cache with \
@@ -74,7 +74,7 @@ steps:
             Failing as specified with test-only-param_fail-on-no-cache-used"
             exit 1
         fi
-        if [[ ! -x "/tmp/snyk" ]] || <<parameters.no-cache>>
+        if [[ ! -x "/tmp/snyk" ]] || <<parameters.no_cache>>
         then
           SNYK_CLI_VERSION=$(cat "/tmp/.snyk-version")
           echo "Downloading Snyk CLI version ${SNYK_CLI_VERSION}"
