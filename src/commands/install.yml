@@ -86,7 +86,7 @@ steps:
         fi
         sudo ln -sf /tmp/snyk /usr/local/bin/snyk
         snyk config set disableSuggestions=true
-        <<#parameters.token-variable>>snyk auth $<<parameters.token-variable>><</parameters.token-variable>>
+        <<#parameters.token_variable>>snyk auth $<<parameters.token_variable>><</parameters.token_variable>>
   - save_cache:
       key: v0-snyk-cli-install-{{ arch }}-<<parameters.os>>-{{ checksum "/tmp/.snyk-version" }}
       paths:

@@ -10,7 +10,7 @@ parameters:
       The Snyk monitoring command to call, i.e. "monitor" or "container monitor"
     type: string
     default: "monitor"
-  token-variable:
+  token_variable:
     description: >
       Name of env var containing your Snyk API token. Pass this as a raw string such as CICD_SNYK_TOKEN.
       Do not paste the actual token into your configuration.
@@ -98,7 +98,7 @@ steps:
       cli-version: <<parameters.cli-version>>
       os: <<parameters.os>>
       install-alpine-dependencies: <<parameters.install-alpine-dependencies>>
-      token-variable: <<parameters.token-variable>>
+      token_variable: <<parameters.token_variable>>
       no-cache: <<parameters.no-cache>>
       test-only-param_fail-on-no-cache-used: <<parameters.test-only-param_fail-on-no-cache-used>>
   # snyk test

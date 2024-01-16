@@ -15,7 +15,7 @@ usage:
         - checkout
         - run: npm ci
         - snyk/scan:
-            token-variable: SNYK_TOKEN
+            token_variable: SNYK_TOKEN
             severity-threshold: high
             fail-on-issues: false
             monitor-on-build: true
