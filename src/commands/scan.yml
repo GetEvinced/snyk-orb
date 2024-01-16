@@ -58,7 +58,7 @@ parameters:
     description: Refer to the Snyk CLI help page for information on additional arguments.
     type: string
     default: ""
-  additional-monitor-arguments:
+  additional_monitor_arguments:
     description: Refer to the Snyk CLI help page for information on additional arguments. These are passed only to the `snyk monitor` command.
     type: string
     default: ""
@@ -76,7 +76,7 @@ parameters:
     description: Install additional dependencies required by the alpine cli
     type: boolean
     default: true
-  no-output-timeout:
+  no_output_timeout:
     description: Elapsed time the command can run without output. The default is 10 minutes.
     type: string
     default: "10m"
@@ -86,7 +86,7 @@ parameters:
       It should not be used in production.
     type: boolean
     default: false
-  test-only-param_dry-run-commands:
+  test_only_param_dry_run_commands:
     description: >
       This parameter is used to test arguments provided to the snyk commands.
       It should not be used in production.
@@ -108,7 +108,7 @@ steps:
         SNYK_INTEGRATION_NAME: CIRCLECI_ORB
         SNYK_INTEGRATION_VERSION: REPLACE_ORB_VERSION
       command: >
-        <<#parameters.test-only-param_dry-run-commands>>function capture() { echo "$@" | tee -a /tmp/dry-run-snyk-commands.txt; }; capture<</parameters.test-only-param_dry-run-commands>>
+        <<#parameters.test_only_param_dry_run_commands>>function capture() { echo "$@" | tee -a /tmp/dry-run-snyk-commands.txt; }; capture<</parameters.test_only_param_dry_run_commands>>
         snyk <<parameters.command>>
         if [ "$<<parameters.fail_on_issues>>" = true ] ; then
           snyk <<parameters.command>>
@@ -125,7 +125,7 @@ steps:
           <<#parameters.target_file>>--file=<<parameters.target_file>><</parameters.target_file>>
           <<parameters.additional_arguments>> || true
         fi
-      no_output_timeout: "<<parameters.no-output-timeout>>"
+      no_output_timeout: "<<parameters.no_output_timeout>>"
   # snyk monitor
   - when:
       condition: <<parameters.monitor_on_build>>
@@ -136,12 +136,12 @@ steps:
               SNYK_INTEGRATION_NAME: CIRCLECI_ORB
               SNYK_INTEGRATION_VERSION: REPLACE_ORB_VERSION
             command: >
-              <<#parameters.test-only-param_dry-run-commands>>function capture() { echo "$@" | tee -a /tmp/dry-run-snyk-commands.txt; }; capture<</parameters.test-only-param_dry-run-commands>>
+              <<#parameters.test_only_param_dry_run_commands>>function capture() { echo "$@" | tee -a /tmp/dry-run-snyk-commands.txt; }; capture<</parameters.test_only_param_dry_run_commands>>
               snyk <<parameters.monitor_command>>
               <<#parameters.docker_image_name>>--docker <<parameters.docker_image_name>><</parameters.docker_image_name>>
               <<#parameters.project>>--project-name=<<parameters.project>><</parameters.project>>
               <<#parameters.organization>>--org=<<parameters.organization>><</parameters.organization>>
               <<#parameters.target_file>>--file=<<parameters.target_file>><</parameters.target_file>>
               <<parameters.additional_arguments>>
-              <<parameters.additional-monitor-arguments>>
-            no_output_timeout: "<<parameters.no-output-timeout>>"
+              <<parameters.additional_monitor_arguments>>
+            no_output_timeout: "<<parameters.no_output_timeout>>"
