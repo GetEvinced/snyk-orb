@@ -22,11 +22,11 @@ parameters:
     type: enum
     enum: ["linux", "macos", "alpine", "linux-arm64"]
     default: "linux"
-  install-alpine-dependencies:
+  install_alpine_dependencies:
     description: Install additional dependencies required by the alpine cli
     type: boolean
     default: true
-  test-only-param_fail-on-no-cache-used:
+  test_only_param_fail_on_no_cache_used:
     description: >
       This parameter is used for testing the cache use
     type: boolean
@@ -35,7 +35,7 @@ steps:
   - run:
       name: Install dependencies
       command: |
-        if [[ "<<parameters.os>>" == "alpine" && "<<parameters.install-alpine-dependencies>>" == "true" ]]; then
+        if [[ "<<parameters.os>>" == "alpine" && "<<parameters.install_alpine_dependencies>>" == "true" ]]; then
           apk add -q --no-progress --no-cache curl wget libstdc++ sudo
         fi
   - run:
@@ -61,17 +61,17 @@ steps:
         SNYK_INTEGRATION_NAME: CIRCLECI_ORB
         SNYK_INTEGRATION_VERSION: REPLACE_ORB_VERSION
       command: |
-        if <<parameters.no_cache>> && <<parameters.test-only-param_fail-on-no-cache-used>>
+        if <<parameters.no_cache>> && <<parameters.test_only_param_fail_on_no_cache_used>>
         then
           echo "Cache disabled, but trying to \
           enforce cache with \
-          test-only-param_fail-on-no-cache-used"
+          test_only_param_fail_on_no_cache_used"
           exit 1
         fi
-        if [[ ! -x "/tmp/snyk" ]] && <<parameters.test-only-param_fail-on-no-cache-used>>
+        if [[ ! -x "/tmp/snyk" ]] && <<parameters.test_only_param_fail_on_no_cache_used>>
         then
             echo "No cached executable found. \
-            Failing as specified with test-only-param_fail-on-no-cache-used"
+            Failing as specified with test_only_param_fail_on_no_cache_used"
             exit 1
         fi
         if [[ ! -x "/tmp/snyk" ]] || <<parameters.no_cache>>

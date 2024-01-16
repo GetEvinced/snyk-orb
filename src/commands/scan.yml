@@ -72,7 +72,7 @@ parameters:
     type: enum
     enum: ["linux", "macos", "alpine", "linux-arm64"]
     default: "linux"
-  install-alpine-dependencies:
+  install_alpine_dependencies:
     description: Install additional dependencies required by the alpine cli
     type: boolean
     default: true
@@ -80,7 +80,7 @@ parameters:
     description: Elapsed time the command can run without output. The default is 10 minutes.
     type: string
     default: "10m"
-  test-only-param_fail-on-no-cache-used:
+  test_only_param_fail_on_no_cache_used:
     description: >
       This parameter is used to test the no-cache functionality.
       It should not be used in production.
@@ -97,10 +97,10 @@ steps:
   - install:
       cli_version: <<parameters.cli_version>>
       os: <<parameters.os>>
-      install-alpine-dependencies: <<parameters.install-alpine-dependencies>>
+      install_alpine_dependencies: <<parameters.install_alpine_dependencies>>
       token_variable: <<parameters.token_variable>>
       no_cache: <<parameters.no_cache>>
-      test-only-param_fail-on-no-cache-used: <<parameters.test-only-param_fail-on-no-cache-used>>
+      test_only_param_fail_on_no_cache_used: <<parameters.test_only_param_fail_on_no_cache_used>>
   # snyk test
   - run:
       name: "Run Snyk"
