@@ -50,7 +50,7 @@ steps:
           https://static.snyk.io/cli/latest/version > /tmp/.snyk-version
         else
           echo "${SNYK_CLI_VERSION}" >> /tmp/.snyk-version
-        fi        
+        fi
         cat /tmp/.snyk-version
   - restore_cache:
       keys:
@@ -73,7 +73,7 @@ steps:
             echo "No cached executable found. \
             Failing as specified with test-only-param_fail-on-no-cache-used"
             exit 1
-        fi      
+        fi
         if [[ ! -x "/tmp/snyk" ]] || <<parameters.no-cache>>
         then
           SNYK_CLI_VERSION=$(cat "/tmp/.snyk-version")
