@@ -36,7 +36,8 @@ steps:
       name: Install dependencies
       command: |
         if [[ "<<parameters.os>>" == "alpine" \
-        && "<<parameters.install_alpine_dependencies>>" == "true" ]];\
+        && "<<parameters.install_alpine_dependencies>>" \
+        == "true" ]];\
          then
           apk add -q --no-progress --no-cache curl wget libstdc++ sudo
         fi
