@@ -110,12 +110,21 @@ steps:
       command: >
         <<#parameters.test-only-param_dry-run-commands>>function capture() { echo "$@" | tee -a /tmp/dry-run-snyk-commands.txt; }; capture<</parameters.test-only-param_dry-run-commands>>
         snyk <<parameters.command>>
-        <<#parameters.docker-image-name>>--docker <<parameters.docker-image-name>><</parameters.docker-image-name>>
-        <<#parameters.severity-threshold>>--severity-threshold=<<parameters.severity-threshold>><</parameters.severity-threshold>>
-        <<#parameters.organization>>--org=<<parameters.organization>><</parameters.organization>>
-        <<#parameters.target-file>>--file=<<parameters.target-file>><</parameters.target-file>>
-        <<parameters.additional-arguments>>
-        <<^parameters.fail-on-issues>> || true<</parameters.fail-on-issues>>
+        if [ "$<<parameters.fail-on-issues>>" = true ] ; then
+          snyk <<parameters.command>>
+          <<#parameters.docker-image-name>>--docker <<parameters.docker-image-name>><</parameters.docker-image-name>>
+          <<#parameters.severity-threshold>>--severity-threshold=<<parameters.severity-threshold>><</parameters.severity-threshold>>
+          <<#parameters.organization>>--org=<<parameters.organization>><</parameters.organization>>
+          <<#parameters.target-file>>--file=<<parameters.target-file>><</parameters.target-file>>
+          <<parameters.additional-arguments>>
+        else
+          snyk <<parameters.command>>
+          <<#parameters.docker-image-name>>--docker <<parameters.docker-image-name>><</parameters.docker-image-name>>
+          <<#parameters.severity-threshold>>--severity-threshold=<<parameters.severity-threshold>><</parameters.severity-threshold>>
+          <<#parameters.organization>>--org=<<parameters.organization>><</parameters.organization>>
+          <<#parameters.target-file>>--file=<<parameters.target-file>><</parameters.target-file>>
+          <<parameters.additional-arguments>> || true
+        fi
       no_output_timeout: "<<parameters.no-output-timeout>>"
   # snyk monitor
   - when:
