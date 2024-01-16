@@ -24,7 +24,7 @@ parameters:
   fail-on-issues:
     description: This specifies if builds should be failed or continued based on issues found by Snyk.
     type: env_var_name
-    default: true
+    default: "true"
   monitor-on-build:
     description: Take a current application dependencies snapshot for continuous monitoring by Snyk, if test was succesful.
     type: boolean
