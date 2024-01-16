@@ -2,7 +2,7 @@ version: 2.1
 
 description: >
   Clone of the Snyk offinial Orb, to change the var types.
-  Fail-on-issues parameter is of the env_var_name type. This would hopefully allow you to pass environment variables directly.
+  fail_on_issues parameter is of the env_var_name type. This would hopefully allow you to pass environment variables directly.
 
 # This information will be displayed in the orb registry and is not mandatory.
 display:

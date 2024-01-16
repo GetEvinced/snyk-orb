@@ -17,23 +17,23 @@ parameters:
       If omitted it's assumed the CLI has already been setup with a valid token beforehand.
     type: env_var_name
     default: SNYK_TOKEN
-  severity-threshold:
+  severity_threshold:
     description: Only report vulnerabilities of provided level or higher (low/medium/high/critical). Default is low.
     type: env_var_name
     default: "low"
-  fail-on-issues:
+  fail_on_issues:
     description: This specifies if builds should be failed or continued based on issues found by Snyk.
     type: env_var_name
     default: "true"
-  monitor-on-build:
+  monitor_on_build:
     description: Take a current application dependencies snapshot for continuous monitoring by Snyk, if test was succesful.
     type: boolean
     default: true
-  target-file:
+  target_file:
     description: The path to the manifest file to be used by Snyk. Should be provided if non-standard.
     type: string
     default: ""
-  docker-image-name:
+  docker_image_name:
     description: The image name, if scanning a container image
     type: string
     default: ""
@@ -54,7 +54,7 @@ parameters:
       The version of the Snyk CLI you are using.
     type: string
     default: ""
-  additional-arguments:
+  additional_arguments:
     description: Refer to the Snyk CLI help page for information on additional arguments.
     type: string
     default: ""
@@ -110,25 +110,25 @@ steps:
       command: >
         <<#parameters.test-only-param_dry-run-commands>>function capture() { echo "$@" | tee -a /tmp/dry-run-snyk-commands.txt; }; capture<</parameters.test-only-param_dry-run-commands>>
         snyk <<parameters.command>>
-        if [ "$<<parameters.fail-on-issues>>" = true ] ; then
+        if [ "$<<parameters.fail_on_issues>>" = true ] ; then
           snyk <<parameters.command>>
-          <<#parameters.docker-image-name>>--docker <<parameters.docker-image-name>><</parameters.docker-image-name>>
-          <<#parameters.severity-threshold>>--severity-threshold=<<parameters.severity-threshold>><</parameters.severity-threshold>>
+          <<#parameters.docker_image_name>>--docker <<parameters.docker_image_name>><</parameters.docker_image_name>>
+          <<#parameters.severity_threshold>>--severity_threshold=<<parameters.severity_threshold>><</parameters.severity_threshold>>
           <<#parameters.organization>>--org=<<parameters.organization>><</parameters.organization>>
-          <<#parameters.target-file>>--file=<<parameters.target-file>><</parameters.target-file>>
-          <<parameters.additional-arguments>>
+          <<#parameters.target_file>>--file=<<parameters.target_file>><</parameters.target_file>>
+          <<parameters.additional_arguments>>
         else
           snyk <<parameters.command>>
-          <<#parameters.docker-image-name>>--docker <<parameters.docker-image-name>><</parameters.docker-image-name>>
-          <<#parameters.severity-threshold>>--severity-threshold=<<parameters.severity-threshold>><</parameters.severity-threshold>>
+          <<#parameters.docker_image_name>>--docker <<parameters.docker_image_name>><</parameters.docker_image_name>>
+          <<#parameters.severity_threshold>>--severity_threshold=<<parameters.severity_threshold>><</parameters.severity_threshold>>
           <<#parameters.organization>>--org=<<parameters.organization>><</parameters.organization>>
-          <<#parameters.target-file>>--file=<<parameters.target-file>><</parameters.target-file>>
-          <<parameters.additional-arguments>> || true
+          <<#parameters.target_file>>--file=<<parameters.target_file>><</parameters.target_file>>
+          <<parameters.additional_arguments>> || true
         fi
       no_output_timeout: "<<parameters.no-output-timeout>>"
   # snyk monitor
   - when:
-      condition: <<parameters.monitor-on-build>>
+      condition: <<parameters.monitor_on_build>>
       steps:
         - run:
             name: "Run Snyk monitor for continuous monitoring on snyk.io"
@@ -138,10 +138,10 @@ steps:
             command: >
               <<#parameters.test-only-param_dry-run-commands>>function capture() { echo "$@" | tee -a /tmp/dry-run-snyk-commands.txt; }; capture<</parameters.test-only-param_dry-run-commands>>
               snyk <<parameters.monitor_command>>
-              <<#parameters.docker-image-name>>--docker <<parameters.docker-image-name>><</parameters.docker-image-name>>
+              <<#parameters.docker_image_name>>--docker <<parameters.docker_image_name>><</parameters.docker_image_name>>
               <<#parameters.project>>--project-name=<<parameters.project>><</parameters.project>>
               <<#parameters.organization>>--org=<<parameters.organization>><</parameters.organization>>
-              <<#parameters.target-file>>--file=<<parameters.target-file>><</parameters.target-file>>
-              <<parameters.additional-arguments>>
+              <<#parameters.target_file>>--file=<<parameters.target_file>><</parameters.target_file>>
+              <<parameters.additional_arguments>>
               <<parameters.additional-monitor-arguments>>
             no_output_timeout: "<<parameters.no-output-timeout>>"

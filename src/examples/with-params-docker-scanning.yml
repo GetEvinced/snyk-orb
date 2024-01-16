@@ -20,9 +20,9 @@ usage:
             command: docker build -t $IMAGE_NAME:latest .
         - snyk/scan:
             token_variable: SNYK_TOKEN
-            docker-image-name: $IMAGE_NAME:latest
-            target-file: "Dockerfile"
-            severity-threshold: high
-            fail-on-issues: false
-            monitor-on-build: true
+            docker_image_name: $IMAGE_NAME:latest
+            target_file: "Dockerfile"
+            severity_threshold: high
+            fail_on_issues: false
+            monitor_on_build: true
             project: ${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}-container

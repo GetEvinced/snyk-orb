@@ -18,4 +18,4 @@ usage:
         - setup_remote_docker
         - run: docker build -t $IMAGE_NAME .
         - snyk/scan:
-            docker-image-name: $IMAGE_NAME
+            docker_image_name: $IMAGE_NAME
