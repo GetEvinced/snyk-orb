@@ -49,7 +49,7 @@ parameters:
       If omitted a default-generated project name will be used.
     type: string
     default: ""
-  cli-version:
+  cli_version:
     description: >
       The version of the Snyk CLI you are using.
     type: string
@@ -95,7 +95,7 @@ parameters:
 steps:
   # install snyk
   - install:
-      cli-version: <<parameters.cli-version>>
+      cli_version: <<parameters.cli_version>>
       os: <<parameters.os>>
       install-alpine-dependencies: <<parameters.install-alpine-dependencies>>
       token_variable: <<parameters.token_variable>>

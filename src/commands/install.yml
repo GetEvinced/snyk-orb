@@ -7,7 +7,7 @@ parameters:
       If omitted it's assumed the CLI has already been setup with a valid token beforehand.
     type: env_var_name
     default: SNYK_TOKEN
-  cli-version:
+  cli_version:
     description: >
       The version of the Snyk CLI you are using.
     type: string
@@ -41,7 +41,7 @@ steps:
   - run:
       name: Store Snyk CLI version as a temporary checksum file
       environment:
-        SNYK_CLI_VERSION: <<parameters.cli-version>>
+        SNYK_CLI_VERSION: <<parameters.cli_version>>
       command: |
         if [[ -z "${SNYK_CLI_VERSION}" ]]; then
           curl --compressed --retry 6 --retry-all-errors \
